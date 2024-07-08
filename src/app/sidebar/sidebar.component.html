@@ -1,0 +1,11 @@
+<h3>Vérification de password</h3> 
+
+<div>
+
+    <label for="inputField">Saisir le password à vérifier :</label>
+    <input id="inputField" [(ngModel)]="password" type="password" placeholder="Tapez ici" />
+
+    <button (click)="verifPwd()">Vérifier</button>
+
+    <p>{{ message }}</p>
+</div>

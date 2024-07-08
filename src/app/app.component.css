@@ -1,0 +1,31 @@
+.boutonActif{
+    background-color: blue;
+    color: white
+}
+.container {
+    display: flex;
+    flex-direction: row ; /* column; */
+    height: 100vh;
+  }
+  
+  .navbar {
+    flex: 0 0 content ; /*auto; */
+  }
+  
+  .content {
+    display: flex;
+    flex: 1;
+  }
+  
+  .main-section {
+    flex: 0 0 75%; /* 9/12 de l'écran */
+    padding: 2px;
+    background-color: #f0f0f0;
+  }
+  
+  .sidebar {
+    flex: 0 0 25%; /* 3/12 de l'écran */
+    padding: 2px;
+    background-color: #dcdcdc;
+  }
+  

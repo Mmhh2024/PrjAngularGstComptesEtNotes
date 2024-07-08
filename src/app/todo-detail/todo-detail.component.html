@@ -1,0 +1,6 @@
+<fieldset>
+    <legend>Détail du TODO</legend>
+    Identifiant : {{todoCurrent?.id}}<br/>
+    Titre : {{todoCurrent?.title}}<br/>
+    Complété : {{todoCurrent?.completed | todoState:'string'}}
+</fieldset>

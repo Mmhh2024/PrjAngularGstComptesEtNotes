@@ -1,0 +1,36 @@
+<div>Gestion des plateformes Web</div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" 
+    data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button> -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/home']" routerLinkActive="active">Accueil</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" *ngIf="isLogged" [routerLink]="['/comptes']" routerLinkActive="active">Comptes Plateformes</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" *ngIf="isLogged" [routerLink]="['/notes']" routerLinkActive="active">Vos Notes</a>
+        </li>
+        <!-- <li class="nav-item">
+          <a class="nav-link" *ngIf="isLogged" [routerLink]="['/utilisateur']" routerLinkActive="active">Utilisateur</a>
+        </li> -->
+        <li class="nav-item">
+          <a class="nav-link" *ngIf="!isLogged" [routerLink]="['/login']" routerLinkActive="active">Connexion</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" *ngIf="!isLogged" [routerLink]="['/inscription']" routerLinkActive="active">Inscription</a>
+        </li>
+        <li class="nav-item" *ngIf="isLogged">
+          <button class="nav-link btn btn-link" (click)="logout()">Déconnexion</button>
+        </li>
+        <li class="nav-item" *ngIf="isLogged">
+          <span>Bienvenu {{ showUtilisateur() }}</span>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  

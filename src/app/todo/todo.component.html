@@ -1,0 +1,40 @@
+<label class="form-label">Recherche : </label><input type="text" [ngModel]="recherche" (ngModelChange)="search($event)" class="form-control"/>
+<table class="table table-striped mt-3">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Titre</th>
+      <th>Complet ?</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let t of list()">
+      <td>{{t.id}}</td>
+      <td>{{t.title}}</td>
+      <td [style.color]="t.completed | todoState">{{t.completed | todoState:"string"}}</td>
+      <td><div class="btn-group btn-group-sm">
+            <button [routerLink]="['/todo', t.id]" class="btn btn-primary"><i class="bi bi-ticket-detailed"></i> [routerLink]</button>
+            <button (click)="goToDetail(t.id)" class="btn btn-success"><i class="bi bi-ticket-detailed"></i> [TS]</button>
+            <button (click)="edit(t.id)" class="btn btn-primary"><i class="bi bi-pen"></i></button>
+            <button (click)="remove(t.id)" class="btn btn-danger"><i class="bi bi-trash"></i></button>
+          </div></td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="4">
+        <button (click)="add()" class="btn btn-lg btn-success"><i class="bi bi-plus"></i></button>
+      </td>
+    </tr>
+    <tr *ngIf="todoForm">
+      <td><input type="number" [(ngModel)]="todoForm.id" class="form-control" readonly/></td>
+      <td><input type="text" [(ngModel)]="todoForm.title" class="form-control"/></td>
+      <td><input type="checkbox" [(ngModel)]="todoForm.completed" class="form-check-input"/></td>
+      <td><div class="btn-group">
+            <button (click)="save()" class="btn btn-success"><i class="bi bi-check-lg"></i></button>
+            <button (click)="cancel()" class="btn btn-warning"><i class="bi bi-backspace"></i></button>
+          </div></td>
+    </tr>
+  </tfoot>
+</table>

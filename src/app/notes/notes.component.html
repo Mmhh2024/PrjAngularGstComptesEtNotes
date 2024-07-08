@@ -1,0 +1,52 @@
+<h2>Gestion des notes </h2>
+<table class="table table-striped mt-3">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <!-- <th>Id Utilisateur</th> -->
+        <th>Nom</th>
+        <th>contenu</th>
+        <th></th>
+      </tr>
+    </thead>
+    
+      <tbody>
+
+       <!--  <ng-container *ngIf="notes$ | async as notes; else loading"></ng-container> 
+          <div *ngIf="notes$.length > 0; else noNotes">   -->
+            <tr *ngFor="let l  of list() | async ">
+              <td>{{l.id}}</td>
+              <td>{{l.nom}}</td>
+              <td>{{l.contenu}}</td>
+              <td><div class="btn-group btn-group-sm">
+                  <!--  <button (click)="edit(l.id)" class="btn btn-primary"><i class="bi bi-pen"></i></button>
+                    <button (click)="remove(l.id )" class="btn btn-danger"><i class="bi bi-trash"></i></button> -->
+                    <button  class="btn btn-primary"><i class="bi bi-pen"></i></button>
+                    <button   class="btn btn-danger"><i class="bi bi-trash"></i></button>
+                  
+                  </div>
+              </td>
+          </tr>
+        <!-- </div> -->
+      <!-- </ng-container> -->
+      </tbody>
+    
+    <!-- <ng-template #loading>
+      <p>Loading notes...</p>
+    </ng-template>  -->
+    <!-- <tfoot>
+      <tr>
+        <td colspan="4">
+          <button (click)="add()" class="btn btn-lg btn-success"><i class="bi bi-plus"></i></button>
+        </td>
+      </tr>
+      <tr *ngIf="listeForm">
+        <td><input type="number" [(ngModel)]="listeForm.id" class="form-control" readonly/></td>
+        <td><input type="text" [(ngModel)]="listeForm.nom" class="form-control"/></td>
+        <td><div class="btn-group">
+              <button (click)="save()" class="btn btn-success"><i class="bi bi-check-lg"></i></button>
+              <button (click)="cancel()" class="btn btn-warning"><i class="bi bi-backspace"></i></button>
+            </div></td>
+      </tr>
+    </tfoot> -->
+  </table>
