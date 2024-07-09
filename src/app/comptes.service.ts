@@ -9,7 +9,7 @@ import { Comptes } from './model';
   providedIn: 'root'
 })
 export class ComptesService {
-  private baseUrl = environment.apiUrl ;
+  private baseUrl = environment.apiUrlComptes ;
 
 
   constructor(private http: HttpClient , private authService: AuthService) { }

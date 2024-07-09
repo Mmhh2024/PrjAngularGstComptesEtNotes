@@ -44,7 +44,7 @@ export class LoginComponent {
     this.authService.login(this.emailCtrl.value, this.passwordCtrl.value).subscribe(response => {
       console.log("in connexion")
       localStorage.setItem('user', JSON.stringify(response));
-      this.router.navigate(['/notes']);
+      this.router.navigate(['/comptes']);
     });
 
   }
