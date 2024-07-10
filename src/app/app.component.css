@@ -18,7 +18,10 @@
   }
   
   .main-section {
-    flex: 0 0 75%; /* 9/12 de l'écran */
+   /* flex: 0 0 75%; /* 9/12 de l'écran */
+   /* padding: 2px;
+    background-color: #f0f0f0; */
+    flex: 1; /* Utiliser tout l'espace restant */
     padding: 2px;
     background-color: #f0f0f0;
   }

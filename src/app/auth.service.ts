@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { environment } from './environments/environment';
-import { Utilisateur } from './model';
+import { UserCreateRequest, Utilisateur } from './model';
 
 @Injectable({
   providedIn: 'root'
@@ -27,8 +27,11 @@ export class AuthService {
   }
   
 
-    register(user: any): Observable<any> {
-      return this.http.post(`${this.baseUrl}/register`, user).pipe(
+    register(user: UserCreateRequest): Observable<any> {
+      console.log("in register");
+      console.log( this.baseUrl );
+      console.log(user);
+      return this.http.post(`${this.baseUrl}/inscription`, user).pipe(
         catchError(this.handleError)
       );
     }

@@ -1,7 +1,10 @@
+<!-- 
+
+
 <div class="card mt-3">
     <form [formGroup]="inscriptionForm" (ngSubmit)="inscription()">
     <div class="card-header text-white bg-primary">
-        Connexion
+        Inscription
     </div>
     <div class="card-body"> 
         <div class="mb-3 mt-3">
@@ -28,7 +31,8 @@
         <div class="mb-3">
             <label for="confirmPassword" class="form-label">Confirmation:</label>
             <input type="confirmPassword" class="form-control" id="confirmPassword" name="confirmPassword" formControlName="confirmPassword">
-            <!-- <span class="text-danger" *ngIf="confirmPasswordCtrl.dirty && inscriptionForm.hasError('mismatch')">La confirmation de mot de passe est invalide</span> -->
+            <!- - <span class="text-danger" *ngIf="confirmPasswordCtrl.dirty && inscriptionForm.hasError('mismatch')">
+                La confirmation de mot de passe est invalide</span> - ->
         </div>
         <div class="mb-3 mt-3">
             <label for="motPrimaire" class="form-label">Mot Primaire de chiffrement des notes:</label>
@@ -37,9 +41,53 @@
         </div>
     </div>
     <div class="card-footer">
-       <!--  <button type="submit" [disabled]="inscriptionForm.invalid" class="btn btn-success btn-lg"><i class="bi bi-check-lg"></i></button> -->
+       <! --  <button type="submit" [disabled]="inscriptionForm.invalid" class="btn btn-success btn-lg">
+        <i class="bi bi-check-lg"></i></button> -- >
 
        <button type="submit"   class="btn btn-success btn-lg" (click)="inscription()">Connexion</button>
     </div>
     </form>
-</div>
+</div> -->
+<div class="card mt-3">
+    <form [formGroup]="inscriptionForm" (ngSubmit)="inscription()">
+      <div class="card-header text-white bg-primary">
+        Inscription
+      </div>
+      <div class="card-body">
+        <div class="mb-3 mt-3">
+          <label for="name" class="form-label">Identifiant:</label>
+          <input type="text" class="form-control" id="name" formControlName="name">
+          <span class="text-danger" *ngIf="nameCtrl.dirty && nameCtrl.hasError('required')">Le nom est obligatoire</span>
+        </div>
+        <div class="mb-3 mt-3">
+          <label for="dateBirth" class="form-label">Date de Naissance:</label>
+          <input type="date" class="form-control" id="dateBirth" formControlName="dateBirth">
+          <span class="text-danger" *ngIf="dateBirthCtrl.hasError('required')">La date de naissance est obligatoire</span>
+        </div>
+        <div class="mb-3 mt-3">
+          <label for="email" class="form-label">Email:</label>
+          <input type="email" class="form-control" id="email" formControlName="email">
+          <span class="text-danger" *ngIf="emailCtrl.dirty && emailCtrl.hasError('required')">Le mail est obligatoire</span>
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password:</label>
+          <input type="password" class="form-control" id="password" formControlName="password">
+          <span class="text-danger" *ngIf="passwordCtrl.dirty && passwordCtrl.hasError('required')">Le mot de passe est obligatoire</span>
+          <span class="text-danger" *ngIf="passwordCtrl.dirty && passwordCtrl.hasError('minlength')">Le mot de passe doit avoir au moins 6 caractères</span>
+        </div>
+        <div class="mb-3">
+          <label for="confirmPassword" class="form-label">Confirmation:</label>
+          <input type="password" class="form-control" id="confirmPassword" formControlName="confirmPassword">
+          <span class="text-danger" *ngIf="confirmPasswordCtrl.dirty && inscriptionForm.hasError('mismatch')">La confirmation de mot de passe est invalide</span>
+        </div>
+        <div class="mb-3 mt-3">
+          <label for="motPrimaire" class="form-label">Mot Primaire de chiffrement des notes:</label>
+          <input type="text" class="form-control" id="motPrimaire" formControlName="motPrimaire">
+          <span class="text-danger" *ngIf="motPrimaireCtrl.hasError('required')">Le mot de chiffrement des notes est obligatoire</span>
+        </div>
+      </div>
+      <div class="card-footer">
+        <button type="submit" class="btn btn-success btn-lg" [disabled]="inscriptionForm.invalid">Inscription</button>
+      </div>
+    </form>
+  </div>

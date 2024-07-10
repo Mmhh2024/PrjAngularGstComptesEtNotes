@@ -4,41 +4,41 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
-import { TodoComponent } from './todo/todo.component';
-import { TodoDetailComponent } from './todo-detail/todo-detail.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { TodoStatePipe } from './todo-state.pipe';
+//import { TodoStatePipe } from './todo-state.pipe';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UtilisateurComponent } from './utilisateur/utilisateur.component';
-import { BooleanPipe } from './boolean.pipe';
+//import { BooleanPipe } from './boolean.pipe';
 import { HttpClientModule } from '@angular/common/http';
-import { ListeComponent } from './liste/liste.component';
-import { NavBarComponent } from './nav-bar/nav-bar.component';
-import { LoginComponent } from './login/login.component';
-import { InscriptionComponent } from './inscription/inscription.component';
-import { SidebarComponent } from './sidebar/sidebar.component';
-import { PasswordComponent } from './password/password.component';
-import { NotesComponent } from './notes/notes.component';
+import { AuthService } from './auth.service';
+import { ComptesDetailComponent } from './comptes-detail/comptes-detail.component';
 import { ComptesComponent } from './comptes/comptes.component';
+import { InscriptionComponent } from './inscription/inscription.component';
+import { LoginComponent } from './login/login.component';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { NotesDetailComponent } from './notes-detail/notes-detail.component';
+import { NotesComponent } from './notes/notes.component';
+import { PasswordComponent } from './password/password.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    TodoComponent,
-    TodoDetailComponent,
     PageNotFoundComponent,
-    TodoStatePipe,
+    //TodoStatePipe,
     UtilisateurComponent,
-    BooleanPipe,
-    ListeComponent,
+    //BooleanPipe,
     NavBarComponent,
     LoginComponent,
     InscriptionComponent,
     SidebarComponent,
     PasswordComponent,
     NotesComponent,
-    ComptesComponent
+    ComptesComponent,
+    NotesDetailComponent,
+    ComptesDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +47,7 @@ import { ComptesComponent } from './comptes/comptes.component';
     HttpClientModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

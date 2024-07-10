@@ -21,6 +21,7 @@ export class NotesService {
       catchError(this.handleError)
       */
      const params = new HttpParams().set('idUtilisateur', idUtilisateur.toString());
+     
     //return this.http.get(`${this.baseUrl}`, { params });
     console.log ("in Notes lecture");
     return this.http.get<Notes[]>(`${this.baseUrl}`, { params });

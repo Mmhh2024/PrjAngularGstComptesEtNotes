@@ -54,6 +54,21 @@ export class Utilisateur {
         this.dateInscription = dateInscription;
     }
 }
+export class UserCreateRequest{
+    public name?:string;
+    //public role?: string; // RoleEnum : USER / ADMIN
+    public  dateBirth?: Date ;	
+    public email?: string;
+	public password?:string;
+	public motPrimaire?: string;
+    constructor( name?: string, dateBirth?: Date, email?: string, password?: string, motPrimaire?: string){
+        this.name = name;
+        this.dateBirth = dateBirth;
+        this.email = email;
+        this.password = password;
+        this.motPrimaire = motPrimaire;
+    }
+}
     
 export class Password{
     pwdclear?: string;

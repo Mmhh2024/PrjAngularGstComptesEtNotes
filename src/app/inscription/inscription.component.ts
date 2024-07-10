@@ -1,34 +1,35 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UtilisateurHttpService } from '../utilisateur/utilisateur-http.service';
+import { AuthService } from '../auth.service';
+import { UserCreateRequest } from '../model';
 
 @Component({
   selector: 'app-inscription',
   templateUrl: './inscription.component.html',
   styleUrl: './inscription.component.css'
 })
-export class InscriptionComponent {
+export class InscriptionComponent  implements OnInit  {
+
   inscriptionForm!: FormGroup;
-/*
-    public  id?: number;
-    public name?:string;
-    public role?: string; // RoleEnum : USER / ADMIN
-    public  dateBirth?: Date ;	
-    public email?: string;
-	public password?:string;
-	public motPrimaire?: string;
-	public   dateInscription?: Date;
-*/
   nameCtrl!: FormControl;
-  //roleCtrl!: FormControl;
   dateBirthCtrl!: FormControl;
   emailCtrl!: FormControl;
   passwordCtrl!: FormControl;
   confirmPasswordCtrl!: FormControl;
   motPrimaireCtrl!: FormControl;
+  userCreate: UserCreateRequest = {
+    name: '',
+    email: '',
+    dateBirth: new Date(),
+    password: '',
+    motPrimaire: ''
+  };
+  errorMessage: string = '';
 
-  constructor(private utilisateurHttpService: UtilisateurHttpService, private formBuilder: FormBuilder, private router: Router) {
+
+  constructor( private formBuilder: FormBuilder, 
+              private router: Router, private authService: AuthService) {
 
   }
 
@@ -50,8 +51,7 @@ export class InscriptionComponent {
     //   };
     // }
 
-    this.nameCtrl = this.formBuilder.control("", Validators.required);
-    //this.roleCtrl = this.formBuilder.control("", Validators.required);
+  /*  this.nameCtrl = this.formBuilder.control("", Validators.required);
     this.dateBirthCtrl = this.formBuilder.control("", Validators.required);
     this.emailCtrl = this.formBuilder.control("", Validators.required);
     this.passwordCtrl = this.formBuilder.control("", Validators.required);
@@ -66,18 +66,56 @@ export class InscriptionComponent {
       confirmPassword: this.confirmPasswordCtrl,
       motPrimaire: this.motPrimaireCtrl,
     }
-  );
+  );*/
+  this.nameCtrl = this.formBuilder.control("", Validators.required);
+  this.dateBirthCtrl = this.formBuilder.control("", Validators.required);
+  this.emailCtrl = this.formBuilder.control("", [Validators.required, Validators.email]);
+  this.passwordCtrl = this.formBuilder.control("", [Validators.required, Validators.minLength(6)]);
+  this.confirmPasswordCtrl = this.formBuilder.control("");
+  this.motPrimaireCtrl = this.formBuilder.control("", Validators.required);
+
+  this.inscriptionForm = this.formBuilder.group({
+    name: this.nameCtrl,
+    dateBirth: this.dateBirthCtrl,
+    email: this.emailCtrl,
+    password: this.passwordCtrl,
+    confirmPassword: this.confirmPasswordCtrl,
+    motPrimaire: this.motPrimaireCtrl,
+  }, { validators: CustomValidators.MatchValidator('password', 'confirmPassword') });
+
 
   }
 
   inscription() {
-    this.utilisateurHttpService.inscription(this.inscriptionForm.value).subscribe(() =>
-      this.router.navigate(['/login'])
+   
+    if (this.inscriptionForm.invalid) {
+      return;
+    }
+
+    this.userCreate.name = this.nameCtrl.value;
+    this.userCreate.email = this.emailCtrl.value;
+    this.userCreate.dateBirth = new Date(this.dateBirthCtrl.value); // Conversion en date
+    this.userCreate.password = this.passwordCtrl.value;
+    this.userCreate.motPrimaire = this.motPrimaireCtrl.value;
+
+
+    this.authService.register(this.userCreate).subscribe(
+      (response: any) => {
+        console.log("Registration successful");
+        this.router.navigate(['/login']);
+      },
+      (error: any) => {
+        console.error('Registration error:', error);
+        this.errorMessage = error;
+      }
     );
-  }
+
+
+}
 
   
 }
+
 export class CustomValidators {
   static MatchValidator(source: string, target: string): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
