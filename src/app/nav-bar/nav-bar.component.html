@@ -1,4 +1,8 @@
-<div>Gestion des plateformes Web</div>
+
+
+<div>Gestion des Plateformes Web 
+    <span *ngIf="isLogged" class="marge">Bienvenu {{ showUtilisateur() }}</span>
+</div>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" 
     data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -27,9 +31,9 @@
         <li class="nav-item" *ngIf="isLogged">
           <button class="nav-link btn btn-link" (click)="logout()">Déconnexion</button>
         </li>
-        <li class="nav-item" *ngIf="isLogged">
+        <!-- <li class="nav-item" *ngIf="isLogged">
           <span>Bienvenu {{ showUtilisateur() }}</span>
-        </li>
+        </li> -->
       </ul>
     </div>
   </nav>

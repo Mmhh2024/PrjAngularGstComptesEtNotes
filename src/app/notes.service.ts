@@ -27,5 +27,8 @@ export class NotesService {
     return this.http.get<Notes[]>(`${this.baseUrl}`, { params });
   
   }
- 
+  deleteNoteById(id: number): Observable<any> {
+    const params = { id: id.toString() };
+    return this.http.delete(`${this.baseUrl}`, { params });
+  }
 }

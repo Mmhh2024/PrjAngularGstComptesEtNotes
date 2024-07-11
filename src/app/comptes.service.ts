@@ -25,4 +25,9 @@ export class ComptesService {
     return this.http.get<Comptes[]>(`${this.baseUrl}/utilisateur`, { params });
   
   }
+  
+  deleteCompteById(id:number): Observable<any> {
+    const params = { id: id.toString() };
+    return this.http.delete(`${this.baseUrl}`, { params });
+  }
 }

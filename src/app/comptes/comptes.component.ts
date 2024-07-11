@@ -77,8 +77,18 @@ export class ComptesComponent implements OnInit {
     edit(id: number){
 
     }
-     remove(id:number){
-
+    remove(id: number): void {
+      this.comptesService.deleteCompteById(id).subscribe(
+        response => {
+          console.log('Compte deleted successfully');
+          if (this.user!= null && this.user.id != null) {
+            this.loadComptes(this.user.id); // Reload the notes list after deletion
+          }
+        },
+        error => {
+          console.error('Error deleting note:', error);
+        }
+      );
     }
     add(){
   /* if(this.NotesForm) {

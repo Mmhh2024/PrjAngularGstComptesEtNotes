@@ -8,25 +8,25 @@
         <th>contenu</th>
         <th></th>
       </tr>
+      <tr><button  class="btn btn-primary"><i class="bi bi-plus-square"></i>Ajouter un compte</button></tr>
     </thead>
     
       <tbody>
 
        <!--  <ng-container *ngIf="notes$ | async as notes; else loading"></ng-container> 
           <div *ngIf="notes$.length > 0; else noNotes">   -->
-            <tr *ngFor="let l  of list() | async ">
-              <td>{{l.id}}</td>
-              <td>{{l.nom}}</td>
-              <td>{{l.contenu}}</td>
-              <td><div class="btn-group btn-group-sm">
-                  <!--  <button (click)="edit(l.id)" class="btn btn-primary"><i class="bi bi-pen"></i></button>
-                    <button (click)="remove(l.id )" class="btn btn-danger"><i class="bi bi-trash"></i></button> -->
-                    <button  class="btn btn-primary"><i class="bi bi-pen"></i></button>
-                    <button   class="btn btn-danger"><i class="bi bi-trash"></i></button>
-                  
-                  </div>
+            <tr *ngFor="let l of list() | async">
+              <td>{{ l.id }}</td>
+              <td>{{ l.nom }}</td>
+              <td>{{ l.contenu }}</td>
+              <td>
+                <div class="btn-group btn-group-sm">
+                  <button class="btn btn-primary"><i class="bi bi-pen"></i></button>
+                  <button *ngIf="l.id !== undefined" (click)="remove(l.id)" class="btn btn-danger"><i class="bi bi-trash"></i></button>
+                </div>
               </td>
-          </tr>
+            </tr>
+            
         <!-- </div> -->
       <!-- </ng-container> -->
       </tbody>

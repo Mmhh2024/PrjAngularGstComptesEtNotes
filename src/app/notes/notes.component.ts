@@ -106,8 +106,18 @@ import { NotesService } from '../notes.service';
      edit(id: number){
 
     }
-     remove(id:number){
-
+    remove(id: number): void {
+      this.notesService.deleteNoteById(id).subscribe(
+        response => {
+          console.log('Note deleted successfully');
+          if (this.user!= null && this.user.id != null) {
+            this.loadNotes(this.user.id); // Reload the notes list after deletion
+          }
+        },
+        error => {
+          console.error('Error deleting note:', error);
+        }
+      );
     }
     add(){
   /* if(this.NotesForm) {
