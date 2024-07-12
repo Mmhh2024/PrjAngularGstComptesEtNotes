@@ -74,9 +74,7 @@ export class ComptesComponent implements OnInit {
       return this.comptes$;
 
     }
-    edit(id: number){
-
-    }
+  
     remove(id: number): void {
       this.comptesService.deleteCompteById(id).subscribe(
         response => {
@@ -90,18 +88,22 @@ export class ComptesComponent implements OnInit {
         }
       );
     }
-    add(){
-  /* if(this.NotesForm) {
-      if(this.comptesForm?.id) { // modification
-        this.comptesService.update(this.comptesForm).subscribe(resp => {
-          this.load();
-        });
-      } else { // création
-        this.comptesService.create(this.comptesForm).subscribe(resp => {
-          this.load();
-        });
-      }*/
+    add(idUser: number){
+        if (idUser !== undefined) {
+          // Naviguer vers ComptesDetailComponent avec l'ID de l'utilisateur
+          this.router.navigate(['/comptes-detail', idUser, 'new']);
+        } else {
+          console.error('User ID is undefined');
+        }
     }
+    edit( userId: number | undefined, id: number | undefined): void {
+      if (id !== undefined && userId !== undefined) {
+        this.router.navigate(['/comptes-detail', userId, id]);
+      } else {
+        console.error('ID or user ID is undefined');
+      }
+    }
+
     private handleError(error: any):void {
       let errorMessage = 'An unknown error occurred!';
       if (error.error instanceof ErrorEvent) {

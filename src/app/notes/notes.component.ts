@@ -119,7 +119,7 @@ import { NotesService } from '../notes.service';
         }
       );
     }
-    add(){
+    add(id: number | undefined){
   /* if(this.NotesForm) {
       if(this.NotesForm?.id) { // modification
         this.notesService.update(this.notesForm).subscribe(resp => {

@@ -19,9 +19,9 @@ const routes: Routes = [
   {path: "login", component: LoginComponent},
   {path: "utilisateur", component: UtilisateurComponent},
   {path: "notes", component: NotesComponent},
-  {path: "notes/:id",component:NotesDetailComponent},
+  {path: "notes-detail/:id,:idUser",component:NotesDetailComponent},
   {path: "comptes", component: ComptesComponent},
-  {path: "comptes/:id", component: ComptesDetailComponent},
+  {path: "comptes-detail/:idUser/:id", component: ComptesDetailComponent},
   {path: "", redirectTo: "home", pathMatch: "full"},
   {path: "**", component: PageNotFoundComponent}
 ];

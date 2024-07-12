@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 import { environment } from './environments/environment';
-import { Comptes } from './model';
+import { CompteCreateRequest, Comptes } from './model';
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +26,11 @@ export class ComptesService {
   
   }
   
+  createCompte(compte:CompteCreateRequest):Observable<any>{
+
+    //const params = { id: id.toString() };
+    return this.http.post(`${this.baseUrl}`,compte);
+  }
   deleteCompteById(id:number): Observable<any> {
     const params = { id: id.toString() };
     return this.http.delete(`${this.baseUrl}`, { params });

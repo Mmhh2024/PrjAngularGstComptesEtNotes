@@ -1,1 +1,69 @@
-<p>comptes-detail works!</p>
+
+<!--   description?:string;
+        dateAdded?:Date;
+        dateUpdate?:Date;
+        userName?:string;
+        email?:string;
+        adressUrl?:string;
+        utilisateur_id?:number;--
+
+          compteForm!: FormGroup;
+  utilisateurIdForm!: FormControl;
+  platformnameCtrl!: FormControl;
+  descriptionCtrl!: FormControl;
+  userNameCtrl!: FormControl;
+  emailCtrl!: FormControl;
+  passwordCtrl!: FormControl;
+              <div>{{l.id}}</div>
+              <div>{{l.description}}</div>
+              <div>{{l.adressUrl}}</div>
+              <div>{{l.email}}</div>
+              <div>{{l.password}}</div>
+              <div>{{l.userName}}</div> 
+              <div class="btn-group btn-group-md">
+                    <button  class="btn btn-primary" (click)="add(l.id )><i class="bi bi-pen"></i></button> 
+             </div> -->
+
+             <div class="card mt-3">
+              <form [formGroup]="compteForm" (ngSubmit)="onSubmit()">
+                <div class="card-header text-white bg-primary">
+                  Créer un Nouveau Compte
+                </div>
+                <div class="card-body">
+                  <div class="mb-3 mt-3">
+                    <label for="platformname" class="form-label">Nom de la plateforme:</label>
+                    <input type="text" class="form-control" id="platformname" formControlName="platformname">
+                    <span class="text-danger" *ngIf="platformnameCtrl.touched && platformnameCtrl.invalid">Ce champ est obligatoire</span>
+                  </div>
+                  <div class="mb-3 mt-3">
+                    <label for="description" class="form-label">Description:</label>
+                    <input type="text" class="form-control" id="description" formControlName="description">
+                  </div>
+                  <div class="mb-3 mt-3">
+                    <label for="userName" class="form-label">Nom d'utilisateur:</label>
+                    <input type="text" class="form-control" id="userName" formControlName="userName">
+                    <span class="text-danger" *ngIf="userNameCtrl.touched && userNameCtrl.invalid">Ce champ est obligatoire</span>
+                  </div>
+                  <div class="mb-3 mt-3">
+                    <label for="email" class="form-label">Email:</label>
+                    <input type="email" class="form-control" id="email" formControlName="email">
+                    <span class="text-danger" *ngIf="emailCtrl.touched && emailCtrl.invalid">Email invalide</span>
+                  </div>
+                  <div class="mb-3 mt-3">
+                    <label for="adressUrl" class="form-label">URL de la plateforme:</label>
+                    <input type="text" class="form-control" id="adressUrl" formControlName="adressUrl">
+                  </div>
+                  <div class="mb-3">
+                    <label for="password" class="form-label">Mot de passe:</label>
+                    <input type="password" class="form-control" id="password" formControlName="password">
+                    <span class="text-danger" *ngIf="passwordCtrl.touched && passwordCtrl.invalid">Le mot de passe est obligatoire</span>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <button type="submit" [disabled]="compteForm.invalid" class="btn btn-success btn-lg">
+                    <i class="bi bi-check-lg"></i> Enregistrer
+                  </button>
+                </div>
+              </form>
+            </div>
+            

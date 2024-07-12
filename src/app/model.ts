@@ -87,7 +87,6 @@ export class Liste {
     }
 }
 export class Notes {
-
     id?: number;
     idUtilisateur?:number;
     nom?:string;
@@ -108,7 +107,6 @@ export class Notes {
 }
 export class Comptes {
         id?: number;
-        //idUtilisateur?:number;
         platformname?:string;
         description?:string;
         dateAdded?:Date;
@@ -117,10 +115,10 @@ export class Comptes {
         email?:string;
         adressUrl?:string;
         password?:string;
-        //utilisateur_id?:number;
+        utilisateurId?:number;
         constructor(id?:number, platformname?:string, description?:string,
                     dateAdded?:Date,dateUpdate?:Date,userName?:string,
-                    email?:string, adressUrl?:string,password?:string,utilisateur_id?:number){
+                    email?:string, adressUrl?:string,password?:string,utilisateurId?:number){
           this.id = id;
           this.description = description;
           this.platformname = platformname;
@@ -128,12 +126,64 @@ export class Comptes {
           this.dateAdded = dateAdded;
           this.dateUpdate = dateUpdate;
           this.userName = userName;
-          //this.utilisateur_id = utilisateur_id;
-          this.email = email;
-          //this.utilisateur_id = utilisateur_id;
+          this.utilisateurId = utilisateurId;
+        }
+    }
+    export class CompteCreateRequest {
+        //id?: number;
+        utilisateurId?: number;
+        platformname?: string;
+        description?: string;
+        userName?: string;
+        email?: string;
+        adressUrl?: string;
+        password?: string;
+    
+        constructor(
+            utilisateurId?: number, 
+            platformname?: string, 
+            description?: string,
+            userName?: string, 
+            email?: string, 
+            adressUrl?: string,
+            password?: string
+        ) {
+            //this.id = id;
+            this.utilisateurId = utilisateurId;
+            this.description = description;
+            this.platformname = platformname;
+            this.email = email;
+            this.userName = userName;
+            this.adressUrl = adressUrl;
+            this.password = password;
         }
     }
 
+    /*
+    export class CompteCreateRequest {
+        //id?: number;
+        utilisateurId?:number;
+        platformname?:string;
+        description?:string;
+        userName?:string;
+        email?:string;
+        adressUrl?:string;
+        password?:string;
+
+        constructor(//id?:number,
+            utilisateurId?:number, platformname?:string, description?:string,
+            userName?:string, email?:string, adressUrl?:string,password?:string){
+          //this.id = id;
+          this.utilisateurId = ;utilisateurId
+          this.description = description;
+          this.platformname = platformname;
+          this.email = email;
+          this.userName = userName;
+          this.adressUrl = adressUrl;
+          this.password = password;
+          //this.utilisateur_id = utilisateur_id;
+        }
+    }*/
 export class ComptesUserRequest{
     idUtilisateur?:number;
     constructor(idUtilisateur?:number){

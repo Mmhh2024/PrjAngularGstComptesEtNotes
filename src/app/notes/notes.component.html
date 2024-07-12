@@ -8,7 +8,14 @@
         <th>contenu</th>
         <th></th>
       </tr>
-      <tr><button  class="btn btn-primary"><i class="bi bi-plus-square"></i>Ajouter un compte</button></tr>
+      <tr>
+        <td colspan="4">
+          <button class="btn btn-primary" *ngIf="user && user.id !== undefined" (click)="add(user.id)">
+            <i class="bi bi-plus-square"></i> Ajouter un compte
+          </button>
+        </td>
+      </tr>
+
     </thead>
     
       <tbody>
