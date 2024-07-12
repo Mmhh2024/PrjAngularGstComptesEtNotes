@@ -158,7 +158,36 @@ export class Comptes {
             this.password = password;
         }
     }
-
+    export class ModifyCompteRequest {
+         id?: number;
+         utilisateurId?: number;
+         platformname?: string;
+         description?: string;
+         userName?: string;
+         email?: string;
+         adressUrl?: string;
+         password?: string;
+     
+         constructor(
+            id?: number,
+             utilisateurId?: number, 
+             platformname?: string, 
+             description?: string,
+             userName?: string, 
+             email?: string, 
+             adressUrl?: string,
+             password?: string
+         ) {
+             this.id = id;
+             this.utilisateurId = utilisateurId;
+             this.description = description;
+             this.platformname = platformname;
+             this.email = email;
+             this.userName = userName;
+             this.adressUrl = adressUrl;
+             this.password = password;
+         }
+    }
     /*
     export class CompteCreateRequest {
         //id?: number;

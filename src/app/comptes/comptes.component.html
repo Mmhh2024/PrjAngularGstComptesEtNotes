@@ -1,4 +1,7 @@
 <h2>Gestion des comptes </h2>
+
+
+
 <table class="table table-striped mt-3">
     <thead>
       <tr>
@@ -37,8 +40,12 @@
               <td>{{l.password}}</td>
               <td>{{l.userName}}</td>
               <td><div class="btn-group btn-group-sm">
-                    <button  class="btn btn-primary"><i class="bi bi-pen"></i></button>
-                    <button  *ngIf="l.id !== undefined" (click)="remove(l.id )" class="btn btn-danger"><i class="bi bi-trash"></i></button>          
+                    
+                    <button *ngIf="l.id !== undefined " (click)="edit( l.id)" class="btn btn-primary">
+                      <i class="bi bi-pen"></i>
+                    </button>
+                    
+                    <button *ngIf="l.id !== undefined" (click)="remove(l.id )" class="btn btn-danger"><i class="bi bi-trash"></i></button>          
                   </div>
               </td>
           </tr>

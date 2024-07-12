@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { catchError, Observable, of } from 'rxjs';
 import { ComptesService } from '../comptes.service';
-import { CompteCreateRequest } from '../model';
+import { CompteCreateRequest, Comptes, ModifyCompteRequest } from '../model';
 
 @Component({
   selector: 'app-comptes-detail',
@@ -13,21 +14,10 @@ export class ComptesDetailComponent implements OnInit{
   id: number | undefined;
   idUser: number | undefined;
   isEditMode: boolean = false;
-/* <div>{{l.id}}</div>
-              <div>{{l.description}}</div>
-              <div>{{l.adressUrl}}</div>
-              <div>{{l.email}}</div>
-              <div>{{l.password}}</div>
-              <div>{{l.userName}}</div>
-              
-              utilisateurId?:number;
-        platformname?:string;
-        description?:string;
-        userName?:string;
-        email?:string;
-        adressUrl?:string;
-        password?:string;*/
+  comptes$!: Observable<Comptes > ;
+
   compteForm!: FormGroup;
+  idForm!:FormControl;
   utilisateurIdForm!: FormControl;
   platformnameCtrl!: FormControl;
   descriptionCtrl!: FormControl;
@@ -53,7 +43,20 @@ export class ComptesDetailComponent implements OnInit{
     private router: Router,
     private route: ActivatedRoute,
     private comptesService: ComptesService
-  ) {}
+  ) {
+    this.compteForm = this.formBuilder.group({
+      id: [''],
+      platformname: [''],
+      description: [''],
+      dateAdded: [''],
+      dateUpdate: [''],
+      userName: [''],
+      email: [''],
+      adressUrl: [''],
+      password: [''],
+      utilisateurId: ['']
+    });
+  }
   ngOnInit(): void {
     // Récupérer les IDs depuis les paramètres de la route
     this.route.paramMap.subscribe(params => {
@@ -72,6 +75,7 @@ export class ComptesDetailComponent implements OnInit{
         this.id = +idParam; // Convert to number
         this.isEditMode = true;
         this.loadCompte(this.id);
+       
       } else {
         this.id = undefined;
         this.isEditMode = false;
@@ -96,10 +100,36 @@ export class ComptesDetailComponent implements OnInit{
       });
     });
   }
+
+  updateForm(compte: Comptes): void {
+    this.compteForm.patchValue({
+      id: compte.id,
+      platformname: compte.platformname,
+      description: compte.description,
+      dateAdded: compte.dateAdded,
+      dateUpdate: compte.dateUpdate,
+      userName: compte.userName,
+      email: compte.email,
+      adressUrl: compte.adressUrl,
+      password: compte.password,
+      utilisateurId: compte.utilisateurId
+    });
+  }
   loadCompte(id: number): void {
-    // Load the account using the ID
-    console.log(`Loading compte with ID: ${id}`);
-    // ... your logic to load the account
+ 
+
+      this.comptesService.getComptesById(id).pipe(
+        catchError((error: any) => {
+          this.errorMessage = error;
+          return of(null);
+        })
+      ).subscribe((compte: Comptes | null) => {
+        if (compte) {
+          //this.comptes$ = compte;
+          this.updateForm(compte);
+        }
+      });
+
   }
 
   initNewCompte(): void {
@@ -107,36 +137,70 @@ export class ComptesDetailComponent implements OnInit{
     console.log('Initializing new compte');
     // ... your logic to initialize a new account
   }
+  cancel(){
+    this.router.navigate(['/comptes']);
+  }
   onSubmit(): void {
-    if (this.compteForm.valid && this.idUser !== null) {
-      const newCompte: CompteCreateRequest = {
-        utilisateurId: this.idUser,
-        platformname: this.platformnameCtrl.value,
-        description: this.descriptionCtrl.value,
-        userName: this.userNameCtrl.value,
-        email: this.emailCtrl.value,
-        adressUrl: this.adressUrlCtrl.value,
-        password: this.passwordCtrl.value,
-      };
+    if (this.compteForm.valid ) {
+      //if ( this.isEditMode == false ) {
+      if (!this.isEditMode) {
+        const newCompte: CompteCreateRequest = {
+          utilisateurId: this.idUser,
+          platformname: this.platformnameCtrl.value,
+          description: this.descriptionCtrl.value,
+          userName: this.userNameCtrl.value,
+          email: this.emailCtrl.value,
+          adressUrl: this.adressUrlCtrl.value,
+          password: this.passwordCtrl.value,
+        };
 
-      this.comptesService.createCompte(newCompte).subscribe(
+        this.comptesService.createCompte(newCompte).subscribe(
+          response => {
+            console.log('Compte created successfully:', response);
+            this.router.navigate(['/comptes']);
+          },
+          error => {
+            console.error('Error creating compte:', error);
+          }
+        );
+      }
+    else{
+     
+      const compte: ModifyCompteRequest = {
+      id: this.id,
+      utilisateurId: this.idUser,
+      platformname: this.platformnameCtrl.value,
+      description: this.descriptionCtrl.value,
+      userName: this.userNameCtrl.value,
+      email: this.emailCtrl.value,
+      adressUrl: this.adressUrlCtrl.value,
+      password: this.passwordCtrl.value,
+      }
+      console.log ("mise a jour compte");
+      
+      this.comptesService.modifyCompte(compte, this.id).subscribe(
         response => {
-          console.log('Compte created successfully:', response);
+          console.log('Compte mis à jour avec succès:', response);
           this.router.navigate(['/comptes']);
         },
         error => {
-          console.error('Error creating compte:', error);
+          console.error('Erreur lors de la mise à jour du compte:', error);
         }
       );
+      
+      
     }
+  } else{
+    console.log("data non valide");
+  }
   }
   // Methods to save or update the account
-  saveCompte(): void {
+  /*saveCompte(): void {
     if (this.isEditMode) {
       // Update the existing account
     } else {
       // Save a new account
     }
-  }
+  }*/
 
 }

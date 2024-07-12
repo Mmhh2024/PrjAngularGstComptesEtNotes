@@ -1,33 +1,14 @@
 
-<!--   description?:string;
-        dateAdded?:Date;
-        dateUpdate?:Date;
-        userName?:string;
-        email?:string;
-        adressUrl?:string;
-        utilisateur_id?:number;--
 
-          compteForm!: FormGroup;
-  utilisateurIdForm!: FormControl;
-  platformnameCtrl!: FormControl;
-  descriptionCtrl!: FormControl;
-  userNameCtrl!: FormControl;
-  emailCtrl!: FormControl;
-  passwordCtrl!: FormControl;
-              <div>{{l.id}}</div>
-              <div>{{l.description}}</div>
-              <div>{{l.adressUrl}}</div>
-              <div>{{l.email}}</div>
-              <div>{{l.password}}</div>
-              <div>{{l.userName}}</div> 
-              <div class="btn-group btn-group-md">
-                    <button  class="btn btn-primary" (click)="add(l.id )><i class="bi bi-pen"></i></button> 
-             </div> -->
-
+             <div>identifiant utilisateur : {{ idUser }}</div>
+             <div *ngIf="id !== undefined  ">identifiant compte : {{ id }}</div>
              <div class="card mt-3">
               <form [formGroup]="compteForm" (ngSubmit)="onSubmit()">
-                <div class="card-header text-white bg-primary">
+                <div *ngIf="id === undefined"  class="card-header text-white bg-primary">
                   Créer un Nouveau Compte
+                </div>
+                <div *ngIf="id !== undefined"  class="card-header text-white bg-primary">
+                  Modification de Compte
                 </div>
                 <div class="card-body">
                   <div class="mb-3 mt-3">
@@ -63,7 +44,14 @@
                   <button type="submit" [disabled]="compteForm.invalid" class="btn btn-success btn-lg">
                     <i class="bi bi-check-lg"></i> Enregistrer
                   </button>
+
+                  <button (click)="cancel()" class="btn btn-danger">
+                    <i class="bi bi-x-lg"></i> Annuler
+                  </button>
+                  
                 </div>
+
+
               </form>
             </div>
             

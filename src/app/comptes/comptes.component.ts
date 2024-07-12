@@ -96,12 +96,14 @@ export class ComptesComponent implements OnInit {
           console.error('User ID is undefined');
         }
     }
-    edit( userId: number | undefined, id: number | undefined): void {
-      if (id !== undefined && userId !== undefined) {
-        this.router.navigate(['/comptes-detail', userId, id]);
+    edit(  id: number | undefined): void {
+
+      if (id !== undefined && this.user && this.user.id !== undefined) {
+        this.router.navigate(['/comptes-detail', this.user.id, id]);
       } else {
         console.error('ID or user ID is undefined');
       }
+
     }
 
     private handleError(error: any):void {
