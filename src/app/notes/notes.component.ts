@@ -71,41 +71,32 @@ import { NotesService } from '../notes.service';
         return of([]); // retourner un Observable vide en cas d'erreur
       })
     );
-
-    /*if (this.user && this.user.id) {
-      this.notesService.getNotesByUserId(this.user.id); //.subscribe(
-
-      this.notes$.subscribe(
-        (notes: Notes[]) => {
-          // Succès : notes contient les notes de l'utilisateur
-          console.log(notes);
-        },
-        (error: any) => {
-          this.errorMessage = error;
-          // Gestion de l'erreur : afficher un message d'erreur à l'utilisateur ou rediriger, etc.
-        }
-      );
-    } else{
-      this.errorMessage = "Identifiant null";
-    }*/
     
   }
   list() {
     return this.notes$;
   }
-    /*loadNotes() {
-      // Logique pour charger les notes de l'utilisateur en utilisant `this.user`
-      // Par exemple, faire une requête HTTP au backend pour obtenir les notes
-      // this.noteService.getNotesByUserId(this.user.id).subscribe(notes => { this.notes = notes; });
-      console.log("in notes" );
-      tmpPath = this.baseUrl + "/";
-      userId = this.user.id;
-      return this.http.get(`${this.baseUrl}/login`, credentials).pipe(
-        catchError(this.handleError);
-    } */
-     edit(id: number){
+    
+     
+   /*edit(  id: number | undefined): void {
 
+      if (id !== undefined && this.user && this.user.id !== undefined) {
+        this.router.navigate(['/notes-detail', this.user.id, id]);
+      } else {
+        console.error('ID or user ID is undefined');
+      }
+
+    }*/ 
+
+    edit(id: number | undefined): void {
+      if (id !== undefined && this.user && this.user.id !== undefined) {
+        this.router.navigate(['/notes-detail', this.user.id, id ]);
+       
+      } else {
+        console.error('ID or user ID is undefined');
+      }
     }
+
     remove(id: number): void {
       this.notesService.deleteNoteById(id).subscribe(
         response => {
@@ -119,21 +110,14 @@ import { NotesService } from '../notes.service';
         }
       );
     }
-    add(id: number | undefined){
-  /* if(this.NotesForm) {
-      if(this.NotesForm?.id) { // modification
-        this.notesService.update(this.notesForm).subscribe(resp => {
-          this.load();
-        });
-      } else { // création
-        this.notesService.create(this.NotesForm).subscribe(resp => {
-          this.load();
-        });
+    add(idUser: number | undefined){
+      if (idUser !== undefined) {
+        // Naviguer vers ComptesDetailComponent avec l'ID de l'utilisateur
+        console.log("in add");
+        this.router.navigate(['/notes-detail', idUser, 'new']);
+      } else {
+        console.error('Identifiant utilisateur manquant');
       }
-    }
-
-    this.NotesForm = undefined;
-  */
     }
     private handleError(error: any):void {
       let errorMessage = 'An unknown error occurred!';

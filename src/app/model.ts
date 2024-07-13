@@ -105,6 +105,34 @@ export class Notes {
         this.dateModification = dateModification;
     }
 }
+export class ModifyNoteRequest {
+
+    id?: number;
+    idUtilisateur?:number;
+    nom?:string;
+    contenu?:string;
+    description?:string;
+
+    constructor(id?:number, idUtilisateur?:number, nom?:string, contenu?:string, description?:string ){
+        this.id = id;
+        this.idUtilisateur = idUtilisateur;
+        this.nom = nom;
+        this.contenu = contenu;
+        this.description = description;
+    }
+}
+export class NoteCreateRequest {
+    idUtilisateur?:number;
+    nom?:string;
+    contenu?:string;
+    description?:string;
+    constructor( idUtilisateur?:number, nom?:string, contenu?:string, description?:string ){
+        this.idUtilisateur = idUtilisateur;
+        this.nom = nom;
+        this.contenu = contenu;
+        this.description = description;
+    }
+}
 export class Comptes {
         id?: number;
         platformname?:string;
@@ -158,6 +186,7 @@ export class Comptes {
             this.password = password;
         }
     }
+   
     export class ModifyCompteRequest {
          id?: number;
          utilisateurId?: number;

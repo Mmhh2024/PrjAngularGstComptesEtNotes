@@ -1,1 +1,52 @@
-<p>notes-detail works!</p>
+
+
+<div>identifiant utilisateur : {{ idUser }}</div>
+<div *ngIf="id !== undefined  ">identifiant note : {{ id }}</div>
+<div class="card mt-3">
+ <form [formGroup]="noteForm" (ngSubmit)="onSubmit()">
+   <div *ngIf="id == undefined"  class="card-header text-white bg-primary">
+     Créer une Nouvelle Note
+   </div>
+   <div *ngIf="id !== undefined"  class="card-header text-white bg-primary">
+     Modification de la note
+   </div>
+   <div class="card-body">
+     <div class="mb-3 mt-3">
+       <label for="nom" class="form-label">Nom de la note:</label>
+       <input type="text" class="form-control" id="nom" formControlName="nom">
+       <span class="text-danger" *ngIf="nomCtrl.touched && nomCtrl.invalid">Ce champ est obligatoire</span>
+     </div>
+     <div class="mb-3 mt-3">
+       <label for="description" class="form-label">Description:</label>
+       <input type="text" class="form-control" id="description" formControlName="description">
+     </div>
+    <!-- <div class="mb-3 mt-3">
+       <label for="contenu" class="form-label">Contenu de la note:</label>
+        <input type="text" class="form-control" id="contenu" formControlName="contenu"> -
+       <textarea rows="5" cols="50">{{ l.contenu }}</textarea>
+       <span class="text-danger" *ngIf="contenuCtrl.touched && contenuCtrl.invalid">Ce champ est obligatoire</span>
+     </div> -->
+     <div class="form-group">
+        <label for="contenu">Contenu</label>
+            <textarea id="description" class="form-control" formControlName="contenu"></textarea>
+            <div *ngIf="contenuCtrl.touched && contenuCtrl.invalid" class="alert alert-danger">
+              Contenu est obligatoire.
+            </div>
+          </div>
+
+   </div>
+   <div class="card-footer">
+     <button type="submit" [disabled]="noteForm.invalid" class="btn btn-success btn-lg">
+       <i class="bi bi-check-lg"></i> Enregistrer
+     </button>
+
+     <button (click)="cancel()" class="btn btn-danger">
+       <i class="bi bi-x-lg"></i> Annuler
+     </button>
+     
+   </div>
+
+
+ </form>
+</div>
+

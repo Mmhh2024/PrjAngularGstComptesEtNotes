@@ -15,6 +15,7 @@ export class ComptesDetailComponent implements OnInit{
   idUser: number | undefined;
   isEditMode: boolean = false;
   comptes$!: Observable<Comptes > ;
+  message: string ="";
 
   compteForm!: FormGroup;
   idForm!:FormControl;
@@ -62,6 +63,7 @@ export class ComptesDetailComponent implements OnInit{
     this.route.paramMap.subscribe(params => {
       const idParam = params.get('id');
       const idUserParam = params.get('idUser');
+      this.message = "";
 
       if (idUserParam) {
         this.idUser = +idUserParam;
@@ -79,7 +81,6 @@ export class ComptesDetailComponent implements OnInit{
       } else {
         this.id = undefined;
         this.isEditMode = false;
-        this.initNewCompte();
       }
 
       console.log(`User ID: ${this.idUser}, ID: ${this.id}, Edit Mode: ${this.isEditMode}`);
@@ -132,11 +133,7 @@ export class ComptesDetailComponent implements OnInit{
 
   }
 
-  initNewCompte(): void {
-    // Initialize a new account
-    console.log('Initializing new compte');
-    // ... your logic to initialize a new account
-  }
+  
   cancel(){
     this.router.navigate(['/comptes']);
   }
@@ -185,6 +182,7 @@ export class ComptesDetailComponent implements OnInit{
         },
         error => {
           console.error('Erreur lors de la mise à jour du compte:', error);
+          this.message = "Erreur lors de la mise à jour du compte";
         }
       );
       
@@ -193,6 +191,9 @@ export class ComptesDetailComponent implements OnInit{
   } else{
     console.log("data non valide");
   }
+  }
+  verifyPwd(password: string):void{
+    
   }
   // Methods to save or update the account
   /*saveCompte(): void {

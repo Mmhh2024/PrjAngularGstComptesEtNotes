@@ -17,8 +17,6 @@ export class ComptesComponent implements OnInit {
   user?: Utilisateur ;
 
 
-    //notes!:   Observable<Notes[]> ;
-    //notes$: Notes[] = [];
     comptes$!: Observable<Comptes[]> ;
     comptesForm?: Comptes;
     errorMessage: string = '';
@@ -47,20 +45,9 @@ export class ComptesComponent implements OnInit {
         console.error("Utilisateur non connecté");
         this.router.navigate(['/login']);
       }
-     /* if (this.authService.isLoggedIn()) {
-        console.log("init" );
-        this.user = this.authService.getUser();
-        if( this.user != null){
-           console.log(this.user.name);
-        }
-        this.loadNotes();
-      } else {
-        this.router.navigate(['/login']);
-      }*/
     }
     loadComptes(id: number){
-      console.log("in load notes" );
-      
+            
       if ( id )
         this.comptes$ = this.comptesService.getComptesByUserId(id).pipe(
           catchError((error: any) => {
@@ -93,7 +80,7 @@ export class ComptesComponent implements OnInit {
           // Naviguer vers ComptesDetailComponent avec l'ID de l'utilisateur
           this.router.navigate(['/comptes-detail', idUser, 'new']);
         } else {
-          console.error('User ID is undefined');
+          console.error('Identifiant utilisateur manquant');
         }
     }
     edit(  id: number | undefined): void {
@@ -105,7 +92,9 @@ export class ComptesComponent implements OnInit {
       }
 
     }
-
+    verifyPwd(password: string):void{
+    
+    }
     private handleError(error: any):void {
       let errorMessage = 'An unknown error occurred!';
       if (error.error instanceof ErrorEvent) {
@@ -119,7 +108,7 @@ export class ComptesComponent implements OnInit {
           errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
         }
       }
-      //return throwError(errorMessage);
+      
       console.error(errorMessage);
       this.errorMessage = errorMessage;
     }

@@ -4,9 +4,11 @@
 
     <label for="inputField">Saisir le password à vérifier :</label>
     <input id="inputField" [(ngModel)]="password" type="text" placeholder="Tapez ici" />
-
-    <button (click)="verifPwd()">Vérifier</button>
-
+</div>
+<div>
+    <button (click)="verifPwd()"class="btn btn-warning"><i class="bi bi-check-square">Vérif. Pwd.</i></button>
+</div>
+<div>
     <p>{{ message }}</p>
 </div>
 

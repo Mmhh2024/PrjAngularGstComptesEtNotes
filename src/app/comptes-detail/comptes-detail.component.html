@@ -39,6 +39,8 @@
                     <input type="password" class="form-control" id="password" formControlName="password">
                     <span class="text-danger" *ngIf="passwordCtrl.touched && passwordCtrl.invalid">Le mot de passe est obligatoire</span>
                   </div>
+
+                  <div> {{ message }}</div>
                 </div>
                 <div class="card-footer">
                   <button type="submit" [disabled]="compteForm.invalid" class="btn btn-success btn-lg">

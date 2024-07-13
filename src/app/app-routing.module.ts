@@ -19,7 +19,7 @@ const routes: Routes = [
   {path: "login", component: LoginComponent},
   {path: "utilisateur", component: UtilisateurComponent},
   {path: "notes", component: NotesComponent},
-  {path: "notes-detail/:id,:idUser",component:NotesDetailComponent},
+  {path: "notes-detail/:idUser/:id",component:NotesDetailComponent},
   {path: "comptes", component: ComptesComponent},
   {path: "comptes-detail/:idUser/:id", component: ComptesDetailComponent},
   {path: "", redirectTo: "home", pathMatch: "full"},

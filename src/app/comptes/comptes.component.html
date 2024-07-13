@@ -1,7 +1,10 @@
 <h2>Gestion des comptes </h2>
 
-
-
+<div>
+  <button class="btn btn-primary" *ngIf="user && user.id !== undefined" (click)="add(user.id)">
+    <i class="bi bi-plus-square"></i> Ajouter un compte
+  </button>
+</div>
 <table class="table table-striped mt-3">
     <thead>
       <tr>
@@ -9,19 +12,12 @@
         <!-- <th>Id Utilisateur</th> -->
         <th>description</th>
         <th>Url site Web</th>
+        <th>Identifiant</th>
         <th>Email</th>
         <th>Password</th>
-        <th>Identifiant</th>
         <th></th>
       </tr>
       
-      <tr>
-        <td colspan="4">
-          <button class="btn btn-primary" *ngIf="user && user.id !== undefined" (click)="add(user.id)">
-            <i class="bi bi-plus-square"></i> Ajouter un compte
-          </button>
-        </td>
-      </tr>
 
     </thead>
     <!--   description?:string;
@@ -36,16 +32,20 @@
               <td>{{l.id}}</td>
               <td>{{l.description}}</td>
               <td>{{l.adressUrl}}</td>
-              <td>{{l.email}}</td>
-              <td>{{l.password}}</td>
               <td>{{l.userName}}</td>
+              <td>{{l.email}}</td>
+              
+              <td>{{l.password}}</td>
+             
               <td><div class="btn-group btn-group-sm">
                     
                     <button *ngIf="l.id !== undefined " (click)="edit( l.id)" class="btn btn-primary">
                       <i class="bi bi-pen"></i>
                     </button>
-                    
-                    <button *ngIf="l.id !== undefined" (click)="remove(l.id )" class="btn btn-danger"><i class="bi bi-trash"></i></button>          
+                    <button *ngIf="l.password !== undefined" (click)="verifyPwd(l.password )" 
+                    class="btn btn-warning"><i class="bi bi-check-square">Vérif. Pwd.</i></button>          
+                  
+                   <button *ngIf="l.id !== undefined" (click)="remove(l.id )" class="btn btn-danger"><i class="bi bi-trash"></i></button>          
                   </div>
               </td>
           </tr>
