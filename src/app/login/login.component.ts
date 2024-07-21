@@ -15,6 +15,7 @@ export class LoginComponent {
   emailCtrl!: FormControl;
   passwordCtrl!: FormControl;
   credentials = { email: '', password: '' };
+  errorMessage: string = '';
 
   constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router) {
     this.emailCtrl = this.formBuilder.control("", Validators.required);
@@ -36,16 +37,25 @@ export class LoginComponent {
     console.log("connexion");
     this.credentials.email = this.emailCtrl.value;
     this.credentials.password = this.passwordCtrl.value;
-    //this.authService.login(this.credentials);
-
-    /*this.authService.login(this.emailCtrl.value, this.passwordCtrl.value).subscribe(() =>
-      this.router.navigate(['/login'])
-    );*/
-    this.authService.login(this.emailCtrl.value, this.passwordCtrl.value).subscribe(response => {
-      console.log("in connexion")
+    
+    //const encodedPassword = encodeURIComponent(this.passwordCtrl.value);
+    this.authService.login(this.emailCtrl.value,this.passwordCtrl.value ).subscribe(response => {
+      
       localStorage.setItem('user', JSON.stringify(response));
       this.router.navigate(['/comptes']);
+    },
+    (error: any) => {
+      console.error('Erreur de connexion:', error);
+      this.errorMessage = error;
+      alert("identifiant et/ou password erronés");
     });
 
+  }
+  getEncodedPassword(): string {
+    return encodeURIComponent(this.passwordCtrl.value);
+  }
+
+  getDecodedPassword(encodedPassword: string): string {
+    return decodeURIComponent(encodedPassword);
   }
 }

@@ -37,6 +37,7 @@
           <span class="text-danger" *ngIf="motPrimaireCtrl.hasError('required')">Le mot de chiffrement des notes est obligatoire</span>
         </div>
       </div>
+      <div>{{ errorMessage }}</div>
       <div class="card-footer">
         <button type="submit" class="btn btn-success btn-lg" [disabled]="inscriptionForm.invalid">Inscription</button>
       </div>

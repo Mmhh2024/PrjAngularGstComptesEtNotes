@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
@@ -29,17 +29,28 @@ export class AuthService {
 
     register(user: UserCreateRequest): Observable<any> {
       console.log("in register");
-      console.log( this.baseUrl );
+      
       console.log(user);
-      return this.http.post(`${this.baseUrl}/inscription`, user).pipe(
+      const apiRegisterUrl = this.baseUrl + '/inscription';
+      console.log( apiRegisterUrl );
+      //const password =  user.password;
+      //const encodedPassword = encodeURIComponent(password);  
+      //user.password = encodedPassword;
+
+      return this.http.post(apiRegisterUrl, user).pipe(
         catchError(this.handleError)
       );
     }
  
       login(email: string, password: string): Observable<any> {
+
+        const apiLoginUrl = this.baseUrl + '/login';
         console.log("in login" + email + "- password " + password);
         console.log(this.baseUrl);
-        return this.http.get(`${this.baseUrl}/login`, { params: { email: email, password: password } }).pipe(
+        const params = new HttpParams()
+          .set('email', email)
+          .set('password', password); 
+        return this.http.get( apiLoginUrl , { params  }).pipe(
           map(user => {
             // Stocker les informations de l'utilisateur dans le sessionStorage
             if (user ) { //&& user.id) {
@@ -49,6 +60,7 @@ export class AuthService {
             return user;
           }),
           catchError(this.handleError)
+          
         );
       }
 

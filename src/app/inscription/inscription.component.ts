@@ -34,39 +34,7 @@ export class InscriptionComponent  implements OnInit  {
   }
 
   ngOnInit(): void {
-    // const checkPasswords = (source: string, target: string) : ValidatorFn => {
-    //   return (control: AbstractControl): ValidationErrors | null => {
-    //     const sourceCtrl = control.get(source);
-    //     const targetCtrl = control.get(target);
-  /* nameCtrl!: FormControl;
-       //roleCtrl!: FormControl;
-  dateBirthCtrl!: FormControl;
-  emailCtrl!: FormControl;
-  passwordCtrl!: FormControl;
-  confirmPasswordCtrl!: FormControl;
-  roleMotPrimaire!: FormControl; */
-    //     return sourceCtrl && targetCtrl && sourceCtrl.value !== targetCtrl.value
-    //       ? { mismatch: true }
-    //       : null;
-    //   };
-    // }
-
-  /*  this.nameCtrl = this.formBuilder.control("", Validators.required);
-    this.dateBirthCtrl = this.formBuilder.control("", Validators.required);
-    this.emailCtrl = this.formBuilder.control("", Validators.required);
-    this.passwordCtrl = this.formBuilder.control("", Validators.required);
-    this.confirmPasswordCtrl = this.formBuilder.control("");
-    this.motPrimaireCtrl = this.formBuilder.control("", Validators.required);
-
-    this.inscriptionForm = this.formBuilder.group({
-      name: this.nameCtrl,
-      dateBirth: this.dateBirthCtrl,
-      email: this.emailCtrl,
-      password: this.passwordCtrl,
-      confirmPassword: this.confirmPasswordCtrl,
-      motPrimaire: this.motPrimaireCtrl,
-    }
-  );*/
+    
   this.nameCtrl = this.formBuilder.control("", Validators.required);
   this.dateBirthCtrl = this.formBuilder.control("", Validators.required);
   this.emailCtrl = this.formBuilder.control("", [Validators.required, Validators.email]);
@@ -97,6 +65,11 @@ export class InscriptionComponent  implements OnInit  {
     this.userCreate.dateBirth = new Date(this.dateBirthCtrl.value); // Conversion en date
     this.userCreate.password = this.passwordCtrl.value;
     this.userCreate.motPrimaire = this.motPrimaireCtrl.value;
+    
+      //const encodedPassword = encodeURIComponent(this.motPrimaireCtrl.value  );
+    
+      //this.userCreate.password = encodedPassword;
+
 
 
     this.authService.register(this.userCreate).subscribe(
@@ -107,6 +80,7 @@ export class InscriptionComponent  implements OnInit  {
       (error: any) => {
         console.error('Registration error:', error);
         this.errorMessage = error;
+        alert(error);
       }
     );
 

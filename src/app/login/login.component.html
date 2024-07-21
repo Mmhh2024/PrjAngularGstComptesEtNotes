@@ -15,6 +15,7 @@
             <span class="text-danger" *ngIf="passwordCtrl.dirty && passwordCtrl.hasError('required')">Le mot passe est obligatoire</span>
             <span class="text-danger" *ngIf="passwordCtrl.dirty && passwordCtrl.hasError('minlength')">Le mot passe doit avoir au moins 5 caractères</span>
         </div>
+        <div class="mb-3"> {{ errorMessage }}</div>
     </div>
     <div class="card-footer">
      <!--   <button type="submit" [disabled]="loginForm.invalid" class="btn btn-success btn-lg"><i class="bi bi-check-lg"></i></button> -->

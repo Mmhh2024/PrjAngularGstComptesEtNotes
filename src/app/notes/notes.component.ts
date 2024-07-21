@@ -77,27 +77,17 @@ import { NotesService } from '../notes.service';
     return this.notes$;
   }
     
-     
-   /*edit(  id: number | undefined): void {
 
-      if (id !== undefined && this.user && this.user.id !== undefined) {
-        this.router.navigate(['/notes-detail', this.user.id, id]);
-      } else {
-        console.error('ID or user ID is undefined');
-      }
-
-    }*/ 
-
-    edit(id: number | undefined): void {
+  edit(id: number | undefined): void {
       if (id !== undefined && this.user && this.user.id !== undefined) {
         this.router.navigate(['/notes-detail', this.user.id, id ]);
        
       } else {
         console.error('ID or user ID is undefined');
       }
-    }
+  }
 
-    remove(id: number): void {
+  remove(id: number): void {
       this.notesService.deleteNoteById(id).subscribe(
         response => {
           console.log('Note deleted successfully');
@@ -109,8 +99,8 @@ import { NotesService } from '../notes.service';
           console.error('Error deleting note:', error);
         }
       );
-    }
-    add(idUser: number | undefined){
+  }
+  add(idUser: number | undefined){
       if (idUser !== undefined) {
         // Naviguer vers ComptesDetailComponent avec l'ID de l'utilisateur
         console.log("in add");
@@ -118,8 +108,8 @@ import { NotesService } from '../notes.service';
       } else {
         console.error('Identifiant utilisateur manquant');
       }
-    }
-    private handleError(error: any):void {
+  }
+  private handleError(error: any):void {
       let errorMessage = 'An unknown error occurred!';
       if (error.error instanceof ErrorEvent) {
         // Client-side error
@@ -135,6 +125,6 @@ import { NotesService } from '../notes.service';
       //return throwError(errorMessage);
       console.error(errorMessage);
       this.errorMessage = errorMessage;
-    }
+  }
     
 }

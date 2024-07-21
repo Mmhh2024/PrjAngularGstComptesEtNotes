@@ -6,6 +6,7 @@ import { catchError, Observable, of } from 'rxjs';
 import { AuthService } from '../auth.service';
 import { ComptesService } from '../comptes.service';
 import { Comptes, Utilisateur } from '../model';
+import { PasswordService } from '../password.service';
 
 @Component({
   selector: 'app-comptes',
@@ -16,18 +17,19 @@ export class ComptesComponent implements OnInit {
 
   user?: Utilisateur ;
 
+  hashedPassword: string = "";
+  comptes$!: Observable<Comptes[]> ;
+  comptesForm?: Comptes;
+  errorMessage: string = '';
 
-    comptes$!: Observable<Comptes[]> ;
-    comptesForm?: Comptes;
-    errorMessage: string = '';
-
-    constructor(
+  constructor(
       private http: HttpClient, 
       private comptesService: ComptesService,
       private authService: AuthService,
-      private router: Router
-    ) { }
-    ngOnInit(): void {
+      private router: Router,
+      private apiPwdService: PasswordService
+  ) { }
+  ngOnInit(): void {
       console.log("dans init de notes");
       if (this.authService.isLoggedIn()) {
         console.log("Utilisateur connecté");
@@ -46,7 +48,7 @@ export class ComptesComponent implements OnInit {
         this.router.navigate(['/login']);
       }
     }
-    loadComptes(id: number){
+  loadComptes(id: number){
             
       if ( id )
         this.comptes$ = this.comptesService.getComptesByUserId(id).pipe(
@@ -56,13 +58,13 @@ export class ComptesComponent implements OnInit {
           })
         );
       
-    }
-    list(){
+  }
+  list(){
       return this.comptes$;
 
-    }
+  }
   
-    remove(id: number): void {
+  remove(id: number): void {
       this.comptesService.deleteCompteById(id).subscribe(
         response => {
           console.log('Compte deleted successfully');
@@ -74,16 +76,16 @@ export class ComptesComponent implements OnInit {
           console.error('Error deleting note:', error);
         }
       );
-    }
-    add(idUser: number){
+  }
+  add(idUser: number){
         if (idUser !== undefined) {
           // Naviguer vers ComptesDetailComponent avec l'ID de l'utilisateur
           this.router.navigate(['/comptes-detail', idUser, 'new']);
         } else {
           console.error('Identifiant utilisateur manquant');
         }
-    }
-    edit(  id: number | undefined): void {
+  }
+  edit(  id: number | undefined): void {
 
       if (id !== undefined && this.user && this.user.id !== undefined) {
         this.router.navigate(['/comptes-detail', this.user.id, id]);
@@ -91,11 +93,36 @@ export class ComptesComponent implements OnInit {
         console.error('ID or user ID is undefined');
       }
 
-    }
-    verifyPwd(password: string):void{
-    
-    }
-    private handleError(error: any):void {
+  }
+   
+  hashPassword(password: string): string {
+      return CryptoJS.SHA256(password).toString(CryptoJS.enc.Hex);
+  }
+  verifyPwd(pwd: string ) {
+      this.hashedPassword = this.hashPassword(pwd);
+      console.log("in verifPwd");
+      console.log(this.hashedPassword);
+     // this.message = "";
+  
+      this.apiPwdService.verifyPwd(this.hashedPassword).subscribe(
+        response => {
+          console.log('Réponse de l\'API:', response);
+          if (response) {
+            console.log("Le password a été volé");
+            //this.message = "Le password a été volé";
+            alert('Le mot de passe ' + pwd + ' a été volé');
+          } else {
+            console.log("Le password n'a pas été volé");
+            //this.message = "Le password n'a pas été volé";
+            alert('Le mot de passe  ' + pwd + ' n\'a pas été volé');
+          }
+        },
+        error => {
+          console.error('Erreur système:', error);
+        }
+      );
+  }
+  private handleError(error: any):void {
       let errorMessage = 'An unknown error occurred!';
       if (error.error instanceof ErrorEvent) {
         // Client-side error

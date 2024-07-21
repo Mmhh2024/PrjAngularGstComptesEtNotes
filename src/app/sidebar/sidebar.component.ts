@@ -15,7 +15,7 @@ export class SidebarComponent {
   hashedPassword: string = '';
   result: Boolean = false;
 
-  constructor(private apiService: PasswordService) {}
+  constructor(private apiPwdService: PasswordService) {}
 
   hashPassword(password: string): string {
     return CryptoJS.SHA256(password).toString(CryptoJS.enc.Hex);
@@ -26,19 +26,21 @@ export class SidebarComponent {
     console.log(this.hashedPassword);
     this.message = "";
 
-    this.apiService.verifyPwd(this.hashedPassword).subscribe(
+    this.apiPwdService.verifyPwd(this.hashedPassword).subscribe(
       response => {
         console.log('Réponse de l\'API:', response);
         if (response) {
           console.log("Le password a été volé");
           this.message = "Le password a été volé";
+          alert('Le mot de passe ' + this.password + ' a été volé');
         } else {
           console.log("Le password n'a pas été volé");
           this.message = "Le password n'a pas été volé";
+          alert('Le mot de passe  ' + this.password + ' n\'a pas été volé');
         }
       },
       error => {
-        console.error('Erreur:', error);
+        console.error('Erreur système:', error);
       }
     );
   }

@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, Observable, of } from 'rxjs';
 import { ComptesService } from '../comptes.service';
 import { CompteCreateRequest, Comptes, ModifyCompteRequest } from '../model';
+import { PasswordService } from '../password.service';
 
 @Component({
   selector: 'app-comptes-detail',
@@ -16,6 +17,7 @@ export class ComptesDetailComponent implements OnInit{
   isEditMode: boolean = false;
   comptes$!: Observable<Comptes > ;
   message: string ="";
+  hashedPassword: string = "";
 
   compteForm!: FormGroup;
   idForm!:FormControl;
@@ -43,7 +45,8 @@ export class ComptesDetailComponent implements OnInit{
     private formBuilder: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
-    private comptesService: ComptesService
+    private comptesService: ComptesService,
+    private apiPwdService: PasswordService
   ) {
     this.compteForm = this.formBuilder.group({
       id: [''],
@@ -133,7 +136,7 @@ export class ComptesDetailComponent implements OnInit{
 
   }
 
-  
+
   cancel(){
     this.router.navigate(['/comptes']);
   }
@@ -192,8 +195,32 @@ export class ComptesDetailComponent implements OnInit{
     console.log("data non valide");
   }
   }
-  verifyPwd(password: string):void{
-    
+  hashPassword(password: string): string {
+    return CryptoJS.SHA256(password).toString(CryptoJS.enc.Hex);
+  }
+  verifyPwd(pwd: string ) {
+    this.hashedPassword = this.hashPassword(pwd);
+    console.log("in verifPwd");
+    console.log(this.hashedPassword);
+    this.message = "";
+
+    this.apiPwdService.verifyPwd(this.hashedPassword).subscribe(
+      response => {
+        console.log('Réponse de l\'API:', response);
+        if (response) {
+          console.log("Le password a été volé");
+          this.message = "Le password a été volé";
+          alert('Le mot de passe ' + pwd + ' a été volé');
+        } else {
+          console.log("Le password n'a pas été volé");
+          this.message = "Le password n'a pas été volé";
+          alert('Le mot de passe  ' + pwd + ' n\'a pas été volé');
+        }
+      },
+      error => {
+        console.error('Erreur système:', error);
+      }
+    );
   }
   // Methods to save or update the account
   /*saveCompte(): void {
