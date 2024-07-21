@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import * as CryptoJS from 'crypto-js';
 import { catchError, Observable, of } from 'rxjs';
 import { AuthService } from '../auth.service';
 import { ComptesService } from '../comptes.service';
@@ -96,7 +97,7 @@ export class ComptesComponent implements OnInit {
   }
    
   hashPassword(password: string): string {
-      return CryptoJS.SHA256(password).toString(CryptoJS.enc.Hex);
+      return CryptoJS.SHA1(password).toString(CryptoJS.enc.Hex);
   }
   verifyPwd(pwd: string ) {
       this.hashedPassword = this.hashPassword(pwd);
@@ -106,7 +107,6 @@ export class ComptesComponent implements OnInit {
   
       this.apiPwdService.verifyPwd(this.hashedPassword).subscribe(
         response => {
-          console.log('Réponse de l\'API:', response);
           if (response) {
             console.log("Le password a été volé");
             //this.message = "Le password a été volé";
@@ -119,7 +119,9 @@ export class ComptesComponent implements OnInit {
         },
         error => {
           console.error('Erreur système:', error);
-        }
+          alert('Erreur système:' + error);
+          }
+        //}
       );
   }
   private handleError(error: any):void {

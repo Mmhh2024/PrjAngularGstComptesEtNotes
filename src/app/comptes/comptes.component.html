@@ -42,7 +42,7 @@
                     <button *ngIf="l.id !== undefined " (click)="edit( l.id)" class="btn btn-primary">
                       <i class="bi bi-pen"></i>
                     </button>
-                    <button *ngIf="l.password !== undefined" (click)="verifyPwd(l.password )" 
+                    <button *ngIf="l.password" type="button"  (click)="verifyPwd(l.password )" 
                     class="btn btn-warning"><i class="bi bi-check-square">Vérif. Pwd.</i></button>          
                   
                    <button *ngIf="l.id !== undefined" (click)="remove(l.id )" class="btn btn-danger"><i class="bi bi-trash"></i></button>          

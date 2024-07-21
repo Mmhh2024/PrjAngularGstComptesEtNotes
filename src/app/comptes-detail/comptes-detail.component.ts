@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import * as CryptoJS from 'crypto-js';
 import { catchError, Observable, of } from 'rxjs';
 import { ComptesService } from '../comptes.service';
 import { CompteCreateRequest, Comptes, ModifyCompteRequest } from '../model';
@@ -196,7 +197,7 @@ export class ComptesDetailComponent implements OnInit{
   }
   }
   hashPassword(password: string): string {
-    return CryptoJS.SHA256(password).toString(CryptoJS.enc.Hex);
+    return CryptoJS.SHA1(password).toString(CryptoJS.enc.Hex);
   }
   verifyPwd(pwd: string ) {
     this.hashedPassword = this.hashPassword(pwd);

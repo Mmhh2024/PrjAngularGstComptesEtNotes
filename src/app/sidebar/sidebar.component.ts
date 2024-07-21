@@ -18,7 +18,7 @@ export class SidebarComponent {
   constructor(private apiPwdService: PasswordService) {}
 
   hashPassword(password: string): string {
-    return CryptoJS.SHA256(password).toString(CryptoJS.enc.Hex);
+    return CryptoJS.SHA1(password).toString(CryptoJS.enc.Hex);
   }
   verifPwd() {
     this.hashedPassword = this.hashPassword(this.password);

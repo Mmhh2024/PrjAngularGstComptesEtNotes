@@ -66,9 +66,9 @@ export class InscriptionComponent  implements OnInit  {
     this.userCreate.password = this.passwordCtrl.value;
     this.userCreate.motPrimaire = this.motPrimaireCtrl.value;
     
-      //const encodedPassword = encodeURIComponent(this.motPrimaireCtrl.value  );
+      const encodedPassword = encodeURIComponent(this.passwordCtrl.value  );
     
-      //this.userCreate.password = encodedPassword;
+      this.userCreate.password = encodedPassword;
 
 
 
