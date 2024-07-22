@@ -12,6 +12,7 @@ import { UserCreateRequest, Utilisateur } from './model';
 export class AuthService {
 
   private utilisateur?: Utilisateur = undefined;
+  
   private baseUrl = environment.apiUrl ;
 
   private currentUserSubject: BehaviorSubject<any>;
@@ -26,6 +27,9 @@ export class AuthService {
     //this.currentUser = this.currentUserSubject.asObservable();
   }
   
+  public get currentUserValue(): any {
+    return this.currentUserSubject.value;
+  }
 
     register(user: UserCreateRequest): Observable<any> {
       console.log("in register");
@@ -56,6 +60,7 @@ export class AuthService {
             if (user ) { //&& user.id) {
               sessionStorage.setItem('currentUser', JSON.stringify(user));
               //console.log(user)
+              this.currentUserSubject.next(user);
             }
             return user;
           }),
@@ -66,7 +71,8 @@ export class AuthService {
 
   isLoggedIn(): boolean {
     //console.log( "in LigginedIn"+ localStorage.getItem('user') !== null);
-    return sessionStorage.getItem('currentUser') !== null;
+    //return sessionStorage.getItem('currentUser') !== null;
+    return !!this.currentUserValue;
   }
 
 
@@ -82,6 +88,7 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('currentUser');
+    this.currentUserSubject.next(null);
   }
 
   private handleError(error: HttpErrorResponse) {

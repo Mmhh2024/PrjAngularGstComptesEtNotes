@@ -15,9 +15,13 @@ export class NavBarComponent implements OnInit  {
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
-    this.isLogged = this.authService.isLoggedIn();
+    /*this.isLogged = this.authService.isLoggedIn();
     this.authService.currentUser.subscribe(user => {
       //this.isLogged = !user;
+      this.user = user;
+    });*/
+    this.authService.currentUser.subscribe(user => {
+      this.isLogged = !!user;
       this.user = user;
     });
   }
