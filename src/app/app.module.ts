@@ -20,6 +20,7 @@ import { NotesDetailComponent } from './notes-detail/notes-detail.component';
 import { NotesComponent } from './notes/notes.component';
 import { PasswordComponent } from './password/password.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { AccordionComponent } from './accordion/accordion.component';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     NotesComponent,
     ComptesComponent,
     NotesDetailComponent,
-    ComptesDetailComponent
+    ComptesDetailComponent,
+    AccordionComponent
   ],
   imports: [
     BrowserModule,

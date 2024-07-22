@@ -101,7 +101,11 @@ export class ComptesDetailComponent implements OnInit{
         userName: this.userNameCtrl,
         email: this.emailCtrl,
         adressUrl: this.adressUrlCtrl,
-        password: this.passwordCtrl,
+        //password: this.passwordCtrl,
+        password: [
+          '', 
+          [Validators.required, Validators.minLength(10)] // Validation de longueur minimale
+        ],
       });
     });
   }
