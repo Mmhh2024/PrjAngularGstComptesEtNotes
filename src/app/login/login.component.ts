@@ -36,10 +36,12 @@ export class LoginComponent {
   connexion() {
     console.log("connexion");
     this.credentials.email = this.emailCtrl.value;
-    this.credentials.password = this.passwordCtrl.value;
     
-    //const encodedPassword = encodeURIComponent(this.passwordCtrl.value);
-    this.authService.login(this.emailCtrl.value,this.passwordCtrl.value ).subscribe(response => {
+    const encodedPassword = encodeURIComponent(this.passwordCtrl.value  );
+    this.credentials.password = encodedPassword; // this.passwordCtrl.value;
+   
+    //this.authService.login(this.emailCtrl.value,this.passwordCtrl.value ).subscribe(response => {
+      this.authService.login(this.emailCtrl.value,encodedPassword ).subscribe(response => {
       
       localStorage.setItem('user', JSON.stringify(response));
       this.router.navigate(['/comptes']);
