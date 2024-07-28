@@ -9,7 +9,7 @@
     <thead>
       <tr>
         <th>Id</th>
-        <!-- <th>Id Utilisateur</th> -->
+        <th>Nom de la Plateforme</th> 
         <th>description</th>
         <th>Url site Web</th>
         <th>Identifiant</th>
@@ -30,6 +30,7 @@
       <tbody>
             <tr *ngFor="let l  of list() | async ">
               <td>{{l.id}}</td>
+              <td>{{l.platformname}}</td>
               <td>{{l.description}}</td>
               <td>{{l.adressUrl}}</td>
               <td>{{l.userName}}</td>
