@@ -36,7 +36,8 @@
                   </div>
                   <div class="mb-3">
                     <label for="password" class="form-label">Mot de passe:</label>
-                    <input type="password" class="form-control" id="password" formControlName="password" autocomplete="new-password">
+                    <!-- input type="password" class="form-control" id="password" formControlName="password" autocomplete="new-password"> -->
+                    <input type="text" class="form-control" id="password" formControlName="password" >    
                     <span class="text-danger" *ngIf="passwordCtrl.touched && passwordCtrl.invalid">Le mot de passe est obligatoire</span>
                   </div>
                   <div>{{ message }}</div>
