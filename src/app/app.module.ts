@@ -7,9 +7,9 @@ import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 //import { TodoStatePipe } from './todo-state.pipe';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { UtilisateurComponent } from './utilisateur/utilisateur.component';
 //import { BooleanPipe } from './boolean.pipe';
 import { HttpClientModule } from '@angular/common/http';
+import { AccordionComponent } from './accordion/accordion.component';
 import { AuthService } from './auth.service';
 import { ComptesDetailComponent } from './comptes-detail/comptes-detail.component';
 import { ComptesComponent } from './comptes/comptes.component';
@@ -20,7 +20,6 @@ import { NotesDetailComponent } from './notes-detail/notes-detail.component';
 import { NotesComponent } from './notes/notes.component';
 import { PasswordComponent } from './password/password.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
-import { AccordionComponent } from './accordion/accordion.component';
 
 
 @NgModule({
@@ -29,7 +28,7 @@ import { AccordionComponent } from './accordion/accordion.component';
     HomeComponent,
     PageNotFoundComponent,
     //TodoStatePipe,
-    UtilisateurComponent,
+    //UtilisateurComponent,
     //BooleanPipe,
     NavBarComponent,
     LoginComponent,
