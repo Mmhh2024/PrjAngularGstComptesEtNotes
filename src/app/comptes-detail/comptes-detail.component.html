@@ -40,7 +40,10 @@
                     <input type="text" class="form-control" id="password" formControlName="password" >    
                     <span class="text-danger" *ngIf="passwordCtrl.touched && passwordCtrl.invalid">Le mot de passe est obligatoire</span>
                   </div>
-                  <div>{{ message }}</div>
+                  <div *ngIf="compteForm.get('password')?.hasError('passwordStrength') && compteForm.get('password')?.touched">
+                    Le mot de passe contenir un lettre Majuscule, une lettre minuscule , un chiffre , un caractère spécial et la taille est de 8 au moins
+                  </div>
+                 
                   <button *ngIf="passwordCtrl.value" type="button" (click)="verifyPwd(passwordCtrl.value )" 
                     class="btn btn-warning"><i class="bi bi-check-square">Vérif. Pwd.</i>
                   </button>          

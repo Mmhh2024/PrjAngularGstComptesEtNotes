@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as CryptoJS from 'crypto-js';
 import { catchError, Observable, of } from 'rxjs';
@@ -29,6 +29,7 @@ export class ComptesDetailComponent implements OnInit{
   emailCtrl!: FormControl;
   adressUrlCtrl!: FormControl;
   passwordCtrl!: FormControl;
+  // password: ['', [Validators.required, this.passwordStrengthValidator]]
   
   
   compteCreate: CompteCreateRequest = {
@@ -51,14 +52,15 @@ export class ComptesDetailComponent implements OnInit{
   ) {
     this.compteForm = this.formBuilder.group({
       id: [''],
-      platformname: [''],
+      platformname:   ['', Validators.required],
       description: [''],
       dateAdded: [''],
       dateUpdate: [''],
       userName: [''],
-      email: [''],
+      email: ['', [Validators.required, Validators.email]], //[''],
       adressUrl: [''],
-      password: [''],
+      //password: [''],
+      password: ['', [Validators.required, this.passwordStrengthValidator]],
       utilisateurId: ['']
     });
   }
@@ -119,6 +121,22 @@ export class ComptesDetailComponent implements OnInit{
       password: compte.password,
       utilisateurId: compte.utilisateurId
     });
+  }
+  passwordStrengthValidator(control: AbstractControl): { [key: string]: boolean } | null {
+    const value = control.value;
+    if (!value) {
+      return null;
+    }
+
+    const hasUpperCase = /[A-Z]/.test(value);
+    const hasLowerCase = /[a-z]/.test(value);
+    const hasNumeric = /[0-9]/.test(value);
+    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(value);
+    const minLength = value.length >= 8;
+
+    const passwordValid = hasUpperCase && hasLowerCase && hasNumeric && hasSpecialChar && minLength;
+
+    return !passwordValid ? { 'passwordStrength': true } : null;
   }
   loadCompte(id: number): void {
  

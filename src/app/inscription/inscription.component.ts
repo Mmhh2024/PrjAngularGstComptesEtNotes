@@ -38,7 +38,7 @@ export class InscriptionComponent  implements OnInit  {
   this.nameCtrl = this.formBuilder.control("", Validators.required);
   this.dateBirthCtrl = this.formBuilder.control("", Validators.required);
   this.emailCtrl = this.formBuilder.control("", [Validators.required, Validators.email]);
-  this.passwordCtrl = this.formBuilder.control("", [Validators.required, Validators.minLength(6)]);
+  this.passwordCtrl = this.formBuilder.control("", [Validators.required, Validators.minLength(8),this.passwordStrengthValidator]);
   this.confirmPasswordCtrl = this.formBuilder.control("");
   this.motPrimaireCtrl = this.formBuilder.control("", Validators.required);
 
@@ -87,7 +87,22 @@ export class InscriptionComponent  implements OnInit  {
 
 }
 
-  
+passwordStrengthValidator(control: AbstractControl): { [key: string]: boolean } | null {
+  const value = control.value;
+  if (!value) {
+    return null;
+  }
+
+  const hasUpperCase = /[A-Z]/.test(value);
+  const hasLowerCase = /[a-z]/.test(value);
+  const hasNumeric = /[0-9]/.test(value);
+  const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(value);
+  const minLength = value.length >= 8;
+
+  const passwordValid = hasUpperCase && hasLowerCase && hasNumeric && hasSpecialChar && minLength;
+
+  return !passwordValid ? { 'passwordStrength': true } : null;
+}  
 }
 
 export class CustomValidators {
